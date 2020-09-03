@@ -38,6 +38,7 @@ log_data/2018/11/2018-11-13-events.json
 ## Data Model
 Using the song and log datasets, data is transformed into Star Schema, so that it can be queries easily and easily understandable to analysts and business users.
 The resulting star schema consists of one fact table and four dimension tables.
+![Data Model](https://github.com/vikaskumar23/Udacity-DEND-Project-Data-Modeling-with-Postgres/blob/master/dbmodel.png)
 ##### Fact Table
 - **songplays:** records in log data associated with song plays i.e. records with page ```NextSong```
     - **fsongplay_id:** unique id for each songplay event
