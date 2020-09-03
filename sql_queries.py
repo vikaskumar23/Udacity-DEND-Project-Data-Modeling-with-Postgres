@@ -96,7 +96,7 @@ time_table_insert = ("""
 # FIND SONGS
 
 song_select = ("""
-    SELECT song_id, songs.artist_id
+    SELECT songs.song_id, songs.artist_id
     from songs
     join artists
     on songs.artist_id=artists.artist_id
