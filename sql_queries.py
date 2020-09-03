@@ -10,7 +10,7 @@ time_table_drop = "DROP TABLE IF EXISTS time;"
 
 songplay_table_create = ("""
     CREATE TABLE IF NOT EXISTS songplays(
-    songplay_id SERIAL,
+    songplay_id SERIAL PRIMARY KEY,
     start_time timestamp NOT NULL REFERENCES time(start_time),
     user_id integer NOT NULL REFERENCES users(user_id),
     level varchar,
@@ -28,7 +28,8 @@ user_table_create = ("""
     first_name varchar,
     last_name varchar,
     gender varchar,
-    level varchar
+    level varchar,
+    time_stamp timestamp
     )
 """)
 
@@ -72,8 +73,8 @@ songplay_table_insert = ("""
 """)
 
 user_table_insert = ("""
-    INSERT INTO users(user_id, first_name, last_name, gender, level)
-    VALUES(%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO NOTHING;
+    INSERT INTO users(user_id, first_name, last_name, gender, level, time_stamp)
+    VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO UPDATE SET level=( CASE WHEN users.time_stamp > EXCLUDED.time_stamp THEN users.level ELSE EXCLUDED.level END);
 """)
 
 song_table_insert = ("""

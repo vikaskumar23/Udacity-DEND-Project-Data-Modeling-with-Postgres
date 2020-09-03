@@ -53,11 +53,12 @@ def process_log_file(cur, filepath):
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']]
+    user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level', 'ts']]
 
     # insert user records
     for i, row in user_df.iterrows():
-        cur.execute(user_table_insert, row)
+        data = (row.userId, row.firstName, row.lastName, row.gender, row.level, datetime.fromtimestamp(row.ts / 1000.0))
+        cur.execute(user_table_insert, data)
 
     # insert songplay records
     for index, row in df.iterrows():
